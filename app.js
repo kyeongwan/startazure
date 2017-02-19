@@ -1,16 +1,55 @@
+// 모듈 추출
+var socketio = require('socket.io');
 var express = require('express');
+var http = require('http');
+var fs = require('fs');
+
+// 변수 선언.
+var seats = [
+    [1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+    [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+];
+
+// 웹 서버 생성
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
-app.get('/', function(req, res){
- res.sendFile(__dirname + '/index.html');
+var server = http.createServer(app);
+
+// 라우트 수행
+app.get('/', function (request, response, next) {
+    fs.readFile('HTMLPage.html', function (error, data) {
+        response.send(data.toString());
+    });
 });
-io.on('connection', function(socket){
- socket.on('chat message', function(msg){
- io.emit('chat message', msg);
- });
+app.get('/seats', function (request, response, next) {
+    response.send(seats);
 });
-http.listen(port, function(){
- console.log('listening on ' + port);
+
+ //웹 서버 실행
+server.listen(52273, function () {
+    console.log('Server Running at http://127.0.0.1:52273');
+});
+
+//app.listen(process.env.port, function () {  //Updated
+//  var addr = app.address();
+//  console.log('   app listening on http://' + addr.address + ':' + addr.port);
+//});
+
+
+// 소켓 서버 생성 및 실행
+var io = socketio.listen(server);
+io.sockets.on('connection', function (socket) {
+    socket.on('reserve', function (data) {
+        seats[data.y][data.x] = 2;
+        io.sockets.emit('reserve', data);
+    });
 });
