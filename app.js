@@ -1,17 +1,9 @@
 
-
-
-
-var fs = require('fs');
-
- 
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
-
-
+ var express = require('express');
+var http = require('http').Server(app);
+var fs = require('fs');
+var app = express();
 
 
 var seats = [       // 0 빈 공간, 1 예약가능 좌석, 2 예약이 완료된 좌석
@@ -42,13 +34,6 @@ var seats = [       // 0 빈 공간, 1 예약가능 좌석, 2 
 
 ];
 
- 
-
-//웹 서버 생성
-
-var app = express();
-
- 
 
 //미들웨어 설정
 
@@ -76,7 +61,11 @@ app.get('/seats', function (request, response, next) {
 
 });
 
- 
+ // 웹 서버를 실행합니다.
+var server = http.createServer(app)
+server.listen(52273, function () {
+    console.log('Server Running at http://127.0.0.1:52273');
+});
 
 
 //소켓 서버를 생성 및 실행합니다.
@@ -91,6 +80,5 @@ io.on('connection', function(socket){
  });
 });
 
-http.listen(port, function(){
- console.log('listening on ' + port);
-});
+
+
