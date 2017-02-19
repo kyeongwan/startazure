@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>실시간 영화 좌석 선택하기</title>
+    <title>Node.js Programming for Modern Web</title>
     <style>
-        .line {
-            overflow: hidden;
-        }
-
+        .line { overflow: hidden; }
         .seat {
-            margin: 2px;
-            float: left;
-            width: 30px;
-            height: 30px;
+            margin: 2px; float: left;
+            width: 30px; height: 30px;
             border-radius: 3px;
         }
-
-        .enable {
-            background: gray;
-        }
-
-        .enable:hover {
-            background: black;
-        }
-
-        .disable {
-            background: red;
-        }
+        
+        .enable { background: gray; }
+        .enable:hover { background: black; }
+        .disable { background: red; }
     </style>
-    <script src="http://code.jquery.com/jquery-1.12.1.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <!-- 소켓 생성 -->
     <script>
@@ -48,6 +35,7 @@
             var onClickSeat = function () {
                 var x = $(this).attr('data-x');
                 var y = $(this).attr('data-y');
+
                 if (confirm('좌석을 예약하시겠습니까?')) {
                     $(this).off('click');
                     socket.emit('reserve', {
@@ -58,6 +46,7 @@
                     alert('취소되었습니다.');
                 }
             };
+
             // Ajax를 수행합니다.
             $.getJSON('/seats', { dummy: new Date().getTime() }, function (data) {
                 // 좌석을 생성합니다.
@@ -71,6 +60,7 @@
                             'data-x': indexX,
                             'data-y': indexY
                         }).appendTo($line);
+
                         if (seat == 1) {
                             // 좌석이 비어 있으면 enable 클래스와 click 리스너를 추가합니다.
                             $output.addClass('enable').on('click', onClickSeat);
@@ -79,6 +69,7 @@
                             $output.addClass('disable');
                         }
                     });
+
                     // 문서 객체를 추가합니다.
                     $line.appendTo('body');
                 });
@@ -87,6 +78,6 @@
     </script>
 </head>
 <body>
-
+    
 </body>
 </html>
