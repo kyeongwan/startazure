@@ -46,7 +46,7 @@ var app = express();
 
 //미들웨어 설정
 
-app.use(app.router);
+//app.use(app.router);
 
  
 
