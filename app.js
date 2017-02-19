@@ -45,7 +45,7 @@ var seats = [       // 0 빈 공간, 1 예약가능 좌석, 2 
 
 app.get('/', function (request, response, next) {
 
-    fs.readFile('/index.html', function (error, data) {
+    fs.readFile('index.html', function (error, data) {
 
         response.send(data.toString());
 
