@@ -28,7 +28,7 @@ app.use(app.router);
 
 // 라우트를 수행합니다.
 app.get('/', function (request, response, next) {
-    fs.readFile('HTMLPage.html', function (error, data) {
+    fs.readFile('inext.html', function (error, data) {
         response.send(data.toString());
     });
 });
