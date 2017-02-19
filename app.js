@@ -26,7 +26,7 @@ var server = http.createServer(app);
 
 // 라우트를 수행합니다.
 app.get('/', function (request, response, next) {
-    fs.readFile('index.html', function (error, data) {
+    fs.readFile('HTMLPage.html', function (error, data) {
         response.send(data.toString());
     });
 });
@@ -47,4 +47,3 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('reserve', data);
     });
 });
-//test
