@@ -2,10 +2,6 @@
 var socketio = require('socket.io');
 var express = require('express');
 var fs = require('fs');
-var http = require('http').Server(app);
-//var http = require('http');
-var port = process.env.PORT || 80;
-// 변수를 선언합니다.
 
 var seats = [
     [1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1],
@@ -36,12 +32,8 @@ app.get('/seats', function (request, response, next) {
     response.send(seats);
 });
 
-// 웹 서버를 실행합니다.
-//server.listen(80, function () {
-//    console.log('Server Running at http://127.0.0.1:80');
-//});
-
-var http = require('http').Server(app);
+//서버 생성 및 실행
+var http = require('http');
 var port = process.env.PORT || 80;
 var server = http.createServer(app);
 server.listen(port, function(){
