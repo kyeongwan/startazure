@@ -1,10 +1,13 @@
 // 모듈을 추출합니다.
 var socketio = require('socket.io');
 var express = require('express');
-var http = require('http');
+//var http = require('http');
 var fs = require('fs');
 
+var http = require('http').Server(app);
+var port = process.env.PORT || 80;
 // 변수를 선언합니다.
+
 var seats = [
     [1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1],
     [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
@@ -35,10 +38,12 @@ app.get('/seats', function (request, response, next) {
 });
 
 // 웹 서버를 실행합니다.
-server.listen(80, function () {
-    console.log('Server Running at http://127.0.0.1:80');
+//server.listen(80, function () {
+//    console.log('Server Running at http://127.0.0.1:80');
+//});
+http.listen(port, function(){
+ console.log('listening on ' + port);
 });
-
 // 소켓 서버를 생성 및 실행합니다.
 var io = socketio.listen(server);
 io.sockets.on('connection', function (socket) {
@@ -47,10 +52,3 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('reserve', data);
     });
 });
-
-
-//var http = require('http').Server(app);
-//var port = process.env.PORT || 80;
-//http.listen(port, function(){
-// console.log('listening on ' + port);
-//});
