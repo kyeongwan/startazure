@@ -36,7 +36,7 @@ app.get('/seats', function (request, response, next) {
 
 // 웹 서버를 실행합니다.
 server.listen(52273, function () {
-    console.log('Server Running at http://127.0.0.1:52273');
+    console.log('Server Running at http://127.0.0.1:80');
 });
 
 // 소켓 서버를 생성 및 실행합니다.
