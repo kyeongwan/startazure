@@ -34,7 +34,7 @@ app.get('/seats', function (request, response, next) {
 
 //서버 생성 및 실행
 var http = require('http');
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 8080;
 var server = http.createServer(app);
 server.listen(port, function(){
  console.log('listening on ' + port);
