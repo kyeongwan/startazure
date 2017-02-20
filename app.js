@@ -24,8 +24,6 @@ var seats = [
 
 // 웹 서버를 생성합니다.
 var app = express();
-var server = http.createServer(app);
-
 
 // 라우트를 수행합니다.
 app.get('/', function (request, response, next) {
@@ -43,9 +41,10 @@ app.get('/seats', function (request, response, next) {
 //    console.log('Server Running at http://127.0.0.1:80');
 //});
 
-
+var http = require('http').Server(app);
+var port = process.env.PORT || 80;
+var server = http.createServer(app);
 server.listen(port, function(){
-
  console.log('listening on ' + port);
 });
 
