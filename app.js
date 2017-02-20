@@ -35,7 +35,7 @@ app.get('/seats', function (request, response, next) {
 });
 
 // 웹 서버를 실행합니다.
-server.listen(52273, function () {
+server.listen(80, function () {
     console.log('Server Running at http://127.0.0.1:80');
 });
 
@@ -47,3 +47,10 @@ io.sockets.on('connection', function (socket) {
         io.sockets.emit('reserve', data);
     });
 });
+
+
+//var http = require('http').Server(app);
+//var port = process.env.PORT || 80;
+//http.listen(port, function(){
+// console.log('listening on ' + port);
+//});
